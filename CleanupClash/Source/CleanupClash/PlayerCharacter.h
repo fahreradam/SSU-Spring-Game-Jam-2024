@@ -19,17 +19,9 @@ UCLASS(config=Game)
 class APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
-	/** Camera boom positioning the camera behind the character */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	USpringArmComponent* CameraBoom;
-
-	/** Follow camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UCameraComponent* FollowCamera;
 	
 	/** MappingContext */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputMappingContext* DefaultMappingContext;
 
 	/** Jump Input Action */
@@ -46,6 +38,9 @@ class APlayerCharacter : public ACharacter
 
 public:
 	APlayerCharacter();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
+	ACameraActor* CameraComponent;
 	
 
 protected:
@@ -63,11 +58,6 @@ protected:
 	
 	// To add mapping context
 	virtual void BeginPlay();
-
-public:
-	/** Returns CameraBoom subobject **/
-	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
-	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	
 };
 
