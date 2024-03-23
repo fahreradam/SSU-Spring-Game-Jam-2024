@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"D:\\Projects\\GameJam2024\\SSU-Spring-Game-Jam-2024\\CleanupClash\\Source\\CleanupClash\\CleanupClash.Build.cs",
+		"D:\\Projects\\GameJam2024\\SSU-Spring-Game-Jam-2024\\CleanupClash\\Source\\CleanupClash.Target.cs",
+		"D:\\Projects\\GameJam2024\\SSU-Spring-Game-Jam-2024\\CleanupClash\\Source\\CleanupClashEditor.Target.cs"
+	],
+	"EngineVersion": "5.3.2"
+}

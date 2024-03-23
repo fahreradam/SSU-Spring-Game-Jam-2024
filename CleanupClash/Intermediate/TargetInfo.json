@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "CleanupClash",
+			"Path": "..\\Source\\CleanupClash.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "CleanupClashEditor",
+			"Path": "..\\Source\\CleanupClashEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

@@ -1,0 +1,29 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\source\\cleanupclash\\cleanupclashgamemode.cpp",
+        "ProvidedModule": "",
+        "PCH": "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\intermediate\\build\\win64\\x64\\cleanupclasheditor\\development\\engine\\sharedpch.engine.cpp20.h.pch",
+        "Includes": [
+            "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\cleanupclash\\definitions.cleanupclash.h",
+            "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\source\\cleanupclash\\cleanupclashgamemode.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\gamemodebase.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\engine\\serverstatreplicator.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\serverstatreplicator.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\gamemodebase.generated.h",
+            "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\intermediate\\build\\win64\\unrealeditor\\inc\\cleanupclash\\uht\\cleanupclashgamemode.generated.h",
+            "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\source\\cleanupclash\\cleanupclashcharacter.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\character.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\charactermovementreplication.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\experimental\\iris\\core\\public\\iris\\serialization\\irisobjectreferencepackagemap.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\iriscore\\uht\\irisobjectreferencepackagemap.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\charactermovementreplication.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\source\\runtime\\engine\\classes\\gameframework\\rootmotionsource.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\rootmotionsource.generated.h",
+            "c:\\program files\\epic games\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\character.generated.h",
+            "d:\\projects\\gamejam2024\\ssu-spring-game-jam-2024\\cleanupclash\\intermediate\\build\\win64\\unrealeditor\\inc\\cleanupclash\\uht\\cleanupclashcharacter.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
