@@ -14,7 +14,7 @@
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 //////////////////////////////////////////////////////////////////////////
-// ACleanupClashCharacter
+// APlayerCharacter
 
 APlayerCharacter::APlayerCharacter()
 {
