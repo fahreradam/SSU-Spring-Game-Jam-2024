@@ -77,6 +77,10 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 # New Additions
+Debug/
 Intermediate/
-
 Saved/
+Collections/
+Developers/
+Binaries/
+
