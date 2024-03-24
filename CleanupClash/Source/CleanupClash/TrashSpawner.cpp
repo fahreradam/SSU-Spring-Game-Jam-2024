@@ -30,7 +30,11 @@ void ATrashSpawner::Tick(float DeltaTime)
 
 void ATrashSpawner::SpawnTrash()
 {
-	GetWorld()->SpawnActor<AActor>(TrashActor->StaticClass(), GetActorTransform());
-	// GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Yellow, "Here");
+	int const SpawnNum = FMath::RandRange(1, 10);
+	for(int i = 0; i < SpawnNum; i++)
+	{
+		GetWorld()->SpawnActor<ATrash>(BPTrashActor, GetTransform());	
+	}
+	
 }
 

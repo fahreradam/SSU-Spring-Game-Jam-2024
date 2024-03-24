@@ -25,11 +25,11 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnDelay)
-	float SpawnDelay = 1;
+	float SpawnDelay = 5;
 
 	UFUNCTION(BlueprintCallable)
 	void SpawnTrash();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	TSubclassOf<AActor> TrashActor;
+	TSubclassOf<ATrash> BPTrashActor;
 };

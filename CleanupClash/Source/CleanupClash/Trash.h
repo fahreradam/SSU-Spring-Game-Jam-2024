@@ -28,6 +28,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Score)
 	int TrashValue = 10;
-
-	
 };
