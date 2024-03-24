@@ -16,6 +16,8 @@ ATrash::ATrash()
 
 	RootComponent = Mesh;
 
+	TrashValue = FMath::RandRange(1, 30);
+
 	
 }
 

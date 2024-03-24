@@ -29,9 +29,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Score)
 	int TrashValue = 10;
 
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
-	void TravelToLocation(FVector NewLocation);
-
 	UPROPERTY(BlueprintReadWrite)
 	FVector Location;
 

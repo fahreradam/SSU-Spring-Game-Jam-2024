@@ -49,7 +49,12 @@ void ATrashSpawner::Tick(float DeltaTime)
 
 void ATrashSpawner::SpawnTrash()
 {
-	int const SpawnNum = FMath::RandRange(1, 10);
+	int SpawnNum = 0;
+
+	while (SpawnNum%2 == 0)
+	{
+		SpawnNum = FMath::RandRange(3, 9);
+	}
 	for(int i = 0; i < SpawnNum; i++)
 	{
 		FVector SpawnLocation = FMath::RandPointInBox(SpawnArea->Bounds.GetBox());
