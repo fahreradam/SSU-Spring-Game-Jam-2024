@@ -12,8 +12,11 @@ ATrash::ATrash()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("TrashMesh");
+	Mesh->SetCollisionProfileName("OverlapAll");
 
 	RootComponent = Mesh;
+
+	
 }
 
 // Called when the game starts or when spawned
@@ -26,6 +29,8 @@ void ATrash::BeginPlay()
 // Called every frame
 void ATrash::Tick(float DeltaTime)
 {
+	SetActorLocation(FMath::VInterpTo(GetActorLocation(), Location, GetWorld()->DeltaTimeSeconds, 3));
 	Super::Tick(DeltaTime);
+
 }
 

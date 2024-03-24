@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Trash.h"
+#include "Components/BoxComponent.h"
 #include "TrashSpawner.generated.h"
 
 UCLASS()
@@ -25,11 +26,29 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = SpawnDelay)
-	float SpawnDelay = 5;
+	float SpawnDelay = 1.0f;
 
 	UFUNCTION(BlueprintCallable)
 	void SpawnTrash();
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TSubclassOf<ATrash> BPTrashActor;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* SpawnArea;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* SpawnPoint;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* SpawnerMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* SpawnHeight;
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	int GetNumTrash();
+
+	UPROPERTY(BlueprintReadWrite)
+	TArray<ATrash*> Trashes;
 };
