@@ -15,6 +15,7 @@ ATrashSpawner::ATrashSpawner()
 	RootComponent = SpawnerMesh;
 
 	SpawnerMesh->SetCollisionProfileName("BlockAll");
+	SpawnerMesh->SetHiddenInGame(true);
 
 	SpawnArea = CreateDefaultSubobject<UBoxComponent>("SpawnArea");
 	SpawnArea->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
