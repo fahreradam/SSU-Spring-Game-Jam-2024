@@ -26,5 +26,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = TrashMesh)
 	UStaticMeshComponent* Mesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Score)
+	int TrashValue = 10;
+
 	
 };
