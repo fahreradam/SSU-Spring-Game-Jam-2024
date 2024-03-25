@@ -3,3 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+UENUM(BlueprintType)
+enum class EPlayerState : uint8
+{
+	Default,
+	Attacking,
+	Stunned
+};

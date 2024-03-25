@@ -17,6 +17,8 @@ public:
 
 	int CurrentNumPlayer = 0;
 
+	float PlayerStunTime = 1.5;
+
 	UFUNCTION(BlueprintCallable)
 	ETeamName GiveTeamName();
 };
