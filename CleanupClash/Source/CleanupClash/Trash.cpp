@@ -3,8 +3,6 @@
 
 #include "Trash.h"
 
-
-
 // Sets default values
 ATrash::ATrash()
 {
@@ -32,7 +30,14 @@ void ATrash::BeginPlay()
 void ATrash::Tick(float DeltaTime)
 {
 	SetActorLocation(FMath::VInterpTo(GetActorLocation(), Location, GetWorld()->DeltaTimeSeconds, 3));
+	SpecialMovement();
 	Super::Tick(DeltaTime);
 
 }
+
+void ATrash::SpecialMovement()
+{
+	AddActorWorldRotation(FRotator(0,0,0.5));
+}
+
 

@@ -32,5 +32,8 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	FVector Location;
 
+	UFUNCTION()
+	void SpecialMovement();
+
 	
 };

@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TeamName.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
 #include "PlayerCharacter.generated.h"
@@ -41,6 +42,9 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera)
 	ACameraActor* CameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Team)
+	ETeamName TeamName = ETeamName::None;
 	
 
 protected:
@@ -56,6 +60,9 @@ protected:
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void EndInteract();
+
+	UFUNCTION(BlueprintCallable)
+	ETeamName GetTeamName();
 			
 
 protected:

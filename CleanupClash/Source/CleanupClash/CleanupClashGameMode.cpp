@@ -15,3 +15,23 @@ ACleanupClashGameMode::ACleanupClashGameMode()
 	}
 }
 
+ETeamName ACleanupClashGameMode::GiveTeamName()
+{
+	ETeamName TeamName;
+	switch (CurrentNumPlayer%2)
+	{
+	case 1:
+		TeamName =  ETeamName::Team1;
+		break;
+	case 0:
+		TeamName =  ETeamName::Team2;
+		break;
+	default:
+		TeamName =  ETeamName::None;
+		break;
+	}
+
+	CurrentNumPlayer++;
+	return TeamName;
+}
+

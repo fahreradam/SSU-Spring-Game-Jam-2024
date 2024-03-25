@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "TeamName.h"
 #include "GameFramework/GameModeBase.h"
 #include "CleanupClashGameMode.generated.h"
 
@@ -13,6 +14,11 @@ class ACleanupClashGameMode : public AGameModeBase
 
 public:
 	ACleanupClashGameMode();
+
+	int CurrentNumPlayer = 0;
+
+	UFUNCTION(BlueprintCallable)
+	ETeamName GiveTeamName();
 };
 
 
