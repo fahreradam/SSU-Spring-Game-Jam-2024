@@ -113,7 +113,7 @@ void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActo
 	APlayerCharacter* OtherPlayer = Cast<APlayerCharacter>(OtherActor);
 	if (OtherPlayer != this && OtherPlayer->State != EPlayerState::Stunned)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
+		//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
 
 		// Stop animation root motion and disable attack collision
 		MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -131,13 +131,15 @@ void APlayerCharacter::DropTrash(FVector Direction)
 {
 	// Drop whichever amount is greater: 1/4 of trash total or 3 (or the rest of held trash if < 3)
 	int TrashToDrop = UKismetMathLibrary::Max(ceil(TrashArray.Num() * 0.25), UKismetMathLibrary::Min(3, TrashArray.Num()));
-	GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Dropping %d"), TrashToDrop));
+	//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Dropping %d"), TrashToDrop));
 	for (int i = 0; i < TrashToDrop; i++)
 	{
-		ATrash* Trash = GetWorld()->SpawnActor<ATrash>(BPTrashActor, GetActorLocation(), GetActorRotation());
+		FVector SpawnLocation = GetActorLocation();
+		SpawnLocation.Z = 120;
+		ATrash* Trash = GetWorld()->SpawnActor<ATrash>(BPTrashActor, SpawnLocation, GetActorRotation());
 		FVector UniqueShotDirection = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(Direction, 45.0);
 		FVector UniqueShotLocation = GetActorLocation() + UniqueShotDirection * UKismetMathLibrary::RandomFloatInRange(200, 400);
-		UniqueShotLocation.Z = 75;
+		UniqueShotLocation.Z = 30;
 		Trash->Location = UniqueShotLocation;
 		TrashArray.RemoveAt(TrashArray.Num() - 1);
 	}
@@ -146,6 +148,7 @@ void APlayerCharacter::DropTrash(FVector Direction)
 void APlayerCharacter::StunCharacter()
 {
 	State = EPlayerState::Stunned;
+	GetCharacterMovement()->MovementMode = EMovementMode::MOVE_None;
 	UWorld* OurWorld = GetWorld();
 	float StunTime = Cast<ACleanupClashGameMode>(OurWorld->GetAuthGameMode())->PlayerStunTime;
 	FTimerHandle StunTimer = FTimerHandle();
