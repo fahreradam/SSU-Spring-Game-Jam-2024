@@ -32,8 +32,13 @@ public:
 	UPROPERTY(BlueprintReadWrite)
 	FVector Location;
 
+	bool Interp = true;
+
+	bool LerpUp = true;
+	
 	UFUNCTION()
 	void SpecialMovement();
 
-	
+	UPROPERTY(EditAnywhere)
+	float OffSet = 1000; 
 };
