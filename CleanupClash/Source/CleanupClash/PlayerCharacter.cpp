@@ -12,10 +12,10 @@
 #include "InputActionValue.h"
 #include "Camera/CameraActor.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
-//////////////////////////////////////////////////////////////////////////
 // APlayerCharacter
 
 APlayerCharacter::APlayerCharacter()
@@ -24,6 +24,13 @@ APlayerCharacter::APlayerCharacter()
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 	GetMesh()->SetRelativeLocation(FVector(0,0,-90));
 	GetMesh()->SetRelativeRotation(FRotator(0,-90,0));
+
+	// Set melee collision box
+	MeleeCollision = CreateDefaultSubobject<UBoxComponent>("Melee Collision");
+	MeleeCollision->SetRelativeLocation(FVector(50, 0, 0));
+	MeleeCollision->SetBoxExtent(FVector(16, 40, 95));
+	MeleeCollision->OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::OnMeleeOverlap);
+	MeleeCollision->SetupAttachment(RootComponent);
 		
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
@@ -86,16 +93,69 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
-
+		
 		// Interacting
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Started, this, &APlayerCharacter::StartInteract);
 		EnhancedInputComponent->BindAction(InteractAction, ETriggerEvent::Completed, this, &APlayerCharacter::EndInteract);
 		
+		// Attacking
+		EnhancedInputComponent->BindAction(MeleeAction, ETriggerEvent::Started, this, &APlayerCharacter::Melee);
 	}
 	else
 	{
 		UE_LOG(LogTemplateCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
 	}
+}
+
+void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	APlayerCharacter* OtherPlayer = Cast<APlayerCharacter>(OtherActor);
+	if (OtherPlayer != this && OtherPlayer->State != EPlayerState::Stunned)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
+
+		// Stop animation root motion and disable attack collision
+		MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		GetCharacterMovement()->DisableMovement();
+
+		// Cause other character to drop trash and stun them
+		OtherPlayer->StunCharacter();
+		FRotator RotationToSelf = UKismetMathLibrary::FindLookAtRotation(OtherPlayer->GetActorLocation(), GetActorLocation());
+		FVector DropDir = UKismetMathLibrary::GetForwardVector(RotationToSelf);
+		OtherPlayer->DropTrash(DropDir);
+	}
+}
+
+void APlayerCharacter::DropTrash(FVector Direction)
+{
+	// Drop whichever amount is greater: 1/4 of trash total or 3 (or the rest of held trash if < 3)
+	int TrashToDrop = UKismetMathLibrary::Max(ceil(TrashArray.Num() * 0.25), UKismetMathLibrary::Min(3, TrashArray.Num()));
+	GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Dropping %d"), TrashToDrop));
+	for (int i = 0; i < TrashToDrop; i++)
+	{
+		ATrash* Trash = GetWorld()->SpawnActor<ATrash>(BPTrashActor, GetActorLocation(), GetActorRotation());
+		FVector UniqueShotDirection = UKismetMathLibrary::RandomUnitVectorInConeInDegrees(Direction, 45.0);
+		FVector UniqueShotLocation = GetActorLocation() + UniqueShotDirection * UKismetMathLibrary::RandomFloatInRange(200, 400);
+		UniqueShotLocation.Z = 75;
+		Trash->Location = UniqueShotLocation;
+		TrashArray.RemoveAt(TrashArray.Num() - 1);
+	}
+}
+
+void APlayerCharacter::StunCharacter()
+{
+	State = EPlayerState::Stunned;
+	UWorld* OurWorld = GetWorld();
+	float StunTime = Cast<ACleanupClashGameMode>(OurWorld->GetAuthGameMode())->PlayerStunTime;
+	FTimerHandle StunTimer = FTimerHandle();
+	GetWorld()->GetTimerManager().SetTimer(StunTimer, this, &APlayerCharacter::EndStun, StunTime, false);
+}
+
+void APlayerCharacter::EndStun()
+{
+	GetCharacterMovement()->MovementMode = MOVE_Walking;
+	State = EPlayerState::Default;
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Value)
@@ -132,4 +192,22 @@ void APlayerCharacter::Look(const FInputActionValue& Value)
 		AddControllerYawInput(LookAxisVector.X);
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void APlayerCharacter::Melee(const FInputActionValue& Value)
+{
+	if (State == EPlayerState::Default)
+	{
+		State = EPlayerState::Attacking;
+		MeleeCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+		PlayAnimMontage(MeleeAttackAnim);	
+	}
+}
+
+void APlayerCharacter::EndMeleeAttack()
+{
+	MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	GetCharacterMovement()->MovementMode = MOVE_Walking;
+	if (State != EPlayerState::Stunned)
+		State = EPlayerState::Default;
 }
