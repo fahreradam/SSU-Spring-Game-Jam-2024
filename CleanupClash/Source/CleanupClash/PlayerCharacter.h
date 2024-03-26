@@ -103,8 +103,17 @@ protected:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void EndInteract();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	int MaxTrash = 5;
+
 	UFUNCTION(BlueprintCallable)
 	ETeamName GetTeamName();
+
+	UFUNCTION(BlueprintCallable)
+	bool CheckTrashLimit();
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void UpdateTrashIcon();
 			
 
 protected:

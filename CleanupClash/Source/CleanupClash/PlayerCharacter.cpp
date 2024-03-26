@@ -79,6 +79,13 @@ ETeamName APlayerCharacter::GetTeamName()
 	return TeamName;
 }
 
+bool APlayerCharacter::CheckTrashLimit()
+{
+	if (TrashArray.Num() < MaxTrash)
+		return true;
+	return false;
+}
+
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	// Set up action bindings
@@ -146,6 +153,7 @@ void APlayerCharacter::DropTrash(FVector Direction)
 		Trash->Location = UniqueShotLocation;
 		TrashArray.RemoveAt(TrashArray.Num() - 1);
 	}
+	UpdateTrashIcon();
 }
 
 void APlayerCharacter::StunCharacter()
