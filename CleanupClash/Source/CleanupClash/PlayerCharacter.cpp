@@ -120,7 +120,7 @@ void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActo
 	APlayerCharacter* OtherPlayer = Cast<APlayerCharacter>(OtherActor);
 	if (OtherPlayer != nullptr && OtherPlayer != this)
 	{
-		if (OtherPlayer->State != EPlayerState::Stunned)
+		if (OtherPlayer->State != EPlayerState::Stunned && OtherPlayer->TeamName != TeamName)
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
 
