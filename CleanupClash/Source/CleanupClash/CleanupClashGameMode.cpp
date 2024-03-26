@@ -18,7 +18,6 @@ ACleanupClashGameMode::ACleanupClashGameMode()
 	// PlayerControllerClass = AMenuPlayerController::StaticClass();
 }
 
-<<<<<<< Updated upstream
 ETeamName ACleanupClashGameMode::GiveTeamName()
 {
 	ETeamName TeamName;
@@ -38,10 +37,4 @@ ETeamName ACleanupClashGameMode::GiveTeamName()
 	CurrentNumPlayer++;
 	return TeamName;
 }
-=======
-//void ACleanupClashGameMode::BeginPlay()
-//{
-//	Super::BeginPlay();
-//}
->>>>>>> Stashed changes
 

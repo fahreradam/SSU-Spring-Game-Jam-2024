@@ -111,19 +111,22 @@ void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActo
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	APlayerCharacter* OtherPlayer = Cast<APlayerCharacter>(OtherActor);
-	if (OtherPlayer != this && OtherPlayer->State != EPlayerState::Stunned)
+	if (OtherPlayer != nullptr && OtherPlayer != this)
 	{
-		//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
+		if (OtherPlayer->State != EPlayerState::Stunned)
+		{
+			//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
 
-		// Stop animation root motion and disable attack collision
-		MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		GetCharacterMovement()->DisableMovement();
+			// Stop animation root motion and disable attack collision
+			MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			GetCharacterMovement()->DisableMovement();
 
-		// Cause other character to drop trash and stun them
-		OtherPlayer->StunCharacter();
-		FRotator RotationToSelf = UKismetMathLibrary::FindLookAtRotation(OtherPlayer->GetActorLocation(), GetActorLocation());
-		FVector DropDir = UKismetMathLibrary::GetForwardVector(RotationToSelf);
-		OtherPlayer->DropTrash(DropDir);
+			// Cause other character to drop trash and stun them
+			OtherPlayer->StunCharacter();
+			FRotator RotationToSelf = UKismetMathLibrary::FindLookAtRotation(OtherPlayer->GetActorLocation(), GetActorLocation());
+			FVector DropDir = UKismetMathLibrary::GetForwardVector(RotationToSelf);
+			OtherPlayer->DropTrash(DropDir);
+		}
 	}
 }
 
