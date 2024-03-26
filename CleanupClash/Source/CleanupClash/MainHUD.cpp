@@ -25,7 +25,6 @@ void AMainHUD::ShowMenu()
 		
 		if (PlayerOwner)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, "Show Menu");
 			// ...player owner is from HUD.h
 			// ...SetInputMode is from PlayerController.h
 			PlayerOwner->bShowMouseCursor = true;
@@ -38,8 +37,6 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 {
 	if (GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
-		GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
-		// UGameplayStatics::OpenLevel(this, )
 		if (PlayerOwner)
 		{
 			PlayerOwner->bShowMouseCursor = false;

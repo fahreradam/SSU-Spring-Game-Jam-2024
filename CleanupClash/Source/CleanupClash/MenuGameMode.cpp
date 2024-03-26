@@ -9,7 +9,6 @@
 
 AMenuGameMode::AMenuGameMode()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, "Menu Game Mode");
 	PlayerControllerClass = AMenuPlayerController::StaticClass();
 	HUDClass = AMainHUD::StaticClass();
 }
