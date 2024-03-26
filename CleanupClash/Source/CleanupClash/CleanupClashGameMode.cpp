@@ -4,6 +4,8 @@
 #include "PlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
+#include "MainHUD.h"
+#include "SMainMenuWidget.h"
 
 ACleanupClashGameMode::ACleanupClashGameMode()
 {
@@ -13,8 +15,10 @@ ACleanupClashGameMode::ACleanupClashGameMode()
 	{
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
+	// PlayerControllerClass = AMenuPlayerController::StaticClass();
 }
 
+<<<<<<< Updated upstream
 ETeamName ACleanupClashGameMode::GiveTeamName()
 {
 	ETeamName TeamName;
@@ -34,4 +38,10 @@ ETeamName ACleanupClashGameMode::GiveTeamName()
 	CurrentNumPlayer++;
 	return TeamName;
 }
+=======
+//void ACleanupClashGameMode::BeginPlay()
+//{
+//	Super::BeginPlay();
+//}
+>>>>>>> Stashed changes
 

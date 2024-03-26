@@ -14,6 +14,7 @@ class ACleanupClashGameMode : public AGameModeBase
 
 public:
 	ACleanupClashGameMode();
+<<<<<<< Updated upstream
 
 	int CurrentNumPlayer = 0;
 
@@ -21,6 +22,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	ETeamName GiveTeamName();
+=======
+	// virtual void BeginPlay() override;
+>>>>>>> Stashed changes
 };
 
 
