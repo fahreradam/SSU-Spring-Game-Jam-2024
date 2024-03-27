@@ -12,4 +12,3 @@ AMenuGameMode::AMenuGameMode()
 	PlayerControllerClass = AMenuPlayerController::StaticClass();
 	HUDClass = AMainHUD::StaticClass();
 }
-

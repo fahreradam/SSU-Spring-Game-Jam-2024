@@ -5,6 +5,7 @@
 #include "SMainMenuWidget.h"
 #include "Widgets/SWeakWidget.h"
 #include "Engine/Engine.h"
+#include "GameFramework/InputDeviceLibrary.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
@@ -39,11 +40,18 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 	{
 		if (PlayerOwner)
 		{
-			PlayerOwner->bShowMouseCursor = false;
-			PlayerOwner->SetInputMode(FInputModeGameOnly());
-			if (GoToMainLevel)
+			TArray<FInputDeviceId> InputDeviceIDs;
+			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
+			for (int i = 0; i < InputDeviceIDs.Num(); i++)
 			{
+				UGameplayStatics::CreatePlayer(GetWorld(), i, false);
+			}
+			if (GoToMainLevel && InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
 				UGameplayStatics::OpenLevel(this, FName("LV_Gameplay"), true);
+				PlayerOwner->bShowMouseCursor = false;
+				PlayerOwner->SetInputMode(FInputModeGameOnly());
 			}
 		}
 	}

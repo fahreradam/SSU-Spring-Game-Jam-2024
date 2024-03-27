@@ -3,6 +3,7 @@
 
 #include "SMainMenuWidget.h"
 #include "MainHUD.h"
+#include "CleanupClashGameMode.h"
 #include "GameFramework/PlayerController.h"
 
 #define LOCTEXT_NAMESPACE "MainMenu"
