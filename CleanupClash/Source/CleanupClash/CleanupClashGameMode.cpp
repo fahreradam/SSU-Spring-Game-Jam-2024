@@ -16,6 +16,14 @@ ACleanupClashGameMode::ACleanupClashGameMode()
 		DefaultPawnClass = PlayerPawnBPClass.Class;
 	}
 	// PlayerControllerClass = AMenuPlayerController::StaticClass();
+
+	TArray<AActor*> TempActor;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), TempActor);
+
+	for (auto const Actor : TempActor)
+	{
+		StartPoints.Add(Cast<APlayerStart>(Actor));
+	}
 }
 
 ETeamName ACleanupClashGameMode::GiveTeamName()
@@ -36,5 +44,12 @@ ETeamName ACleanupClashGameMode::GiveTeamName()
 
 	CurrentNumPlayer++;
 	return TeamName;
+}
+
+AActor* ACleanupClashGameMode::FindPlayerStart_Implementation(AController* Player, const FString& IncomingName)
+{
+	if (Player->StartSpot == nullptr)
+		return StartPoints.Pop();
+	return Player->StartSpot.Get();
 }
 

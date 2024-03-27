@@ -42,9 +42,9 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 		{
 			TArray<FInputDeviceId> InputDeviceIDs;
 			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
-			for (int i = 0; i < InputDeviceIDs.Num(); i++)
+			for (int i = 0; i < InputDeviceIDs.Num()-1; i++)
 			{
-				UGameplayStatics::CreatePlayer(GetWorld(), i, false);
+				UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
 			}
 			if (GoToMainLevel && InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
 			{

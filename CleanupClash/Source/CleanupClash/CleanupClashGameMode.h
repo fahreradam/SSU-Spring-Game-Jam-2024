@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "TeamName.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameFramework/PlayerStart.h"
 #include "CleanupClashGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -21,6 +22,11 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	ETeamName GiveTeamName();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<APlayerStart*> StartPoints;
+
+	virtual AActor* FindPlayerStart_Implementation(AController* Player, const FString& IncomingName) override;
 };
 
 
