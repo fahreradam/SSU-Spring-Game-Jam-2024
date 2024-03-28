@@ -52,6 +52,14 @@ APlayerCharacter::APlayerCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	
+	// there absolutely has to be a better way to do this
+	static ConstructorHelpers::FObjectFinder<USoundWave> attackSoundWave(TEXT("/Script/Engine.SoundWave'/Game/Sounds/effect__lesaucisson__swoosh-1.effect__lesaucisson__swoosh-1'"));
+	AttackSoundWave = attackSoundWave.Object;
+	
+	static ConstructorHelpers::FObjectFinder<USoundWave> attackHitSoundWave(TEXT("/Script/Engine.SoundWave'/Game/Sounds/effect__adrian_gomar__book-impact-06.effect__adrian_gomar__book-impact-06'"));
+	AttackHitSoundWave = attackHitSoundWave.Object;
+	
 }
 
 void APlayerCharacter::BeginPlay()
@@ -123,6 +131,9 @@ void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActo
 		if (OtherPlayer->State != EPlayerState::Stunned && OtherPlayer->TeamName != TeamName)
 		{
 			//GEngine->AddOnScreenDebugMessage(-1, 2.0, FColor::Blue, FString::Printf(TEXT("Hit another char %s"), *OtherPlayer->GetName()));
+
+			//play hit noise
+			UGameplayStatics::PlaySound2D(this, AttackHitSoundWave, 0.5f);
 
 			// Stop animation root motion and disable attack collision
 			MeleeCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -212,6 +223,7 @@ void APlayerCharacter::Melee(const FInputActionValue& Value)
 {
 	if (State == EPlayerState::Default)
 	{
+		UGameplayStatics::PlaySound2D(this, AttackSoundWave, 0.5f);
 		State = EPlayerState::Attacking;
 		MeleeCollision->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 		PlayAnimMontage(MeleeAttackAnim);	
