@@ -15,7 +15,6 @@ ATrash::ATrash()
 	RootComponent = Mesh;
 
 	TrashValue = FMath::RandRange(1, 30);
-		
 }
 
 // Called when the game starts or when spawned
