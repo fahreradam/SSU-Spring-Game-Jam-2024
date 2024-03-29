@@ -6,6 +6,7 @@
 #include "Widgets/SWeakWidget.h"
 #include "Engine/Engine.h"
 #include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
 
 
 void ALevelHUD::BeginPlay()
@@ -27,6 +28,8 @@ void ALevelHUD::ShowPauseMenu()
 			// ...SetInputMode is from PlayerController.h
 			PlayerOwner->bShowMouseCursor = true;
 			PlayerOwner->SetInputMode(FInputModeUIOnly());
+			UGameplayStatics::SetGamePaused(GetWorld(), true);
+			
 		}
 	}
 }
@@ -39,7 +42,7 @@ void ALevelHUD::ShowGameMenu()
 	}
 }
 
-void ALevelHUD::RemoveMenu(bool GoToMainLevel)
+void ALevelHUD::RemovePauseMenu()
 {
 	if (GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
 	{
@@ -48,6 +51,19 @@ void ALevelHUD::RemoveMenu(bool GoToMainLevel)
 			GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
 			PlayerOwner->bShowMouseCursor = false;
 			PlayerOwner->SetInputMode(FInputModeGameOnly());
+			UGameplayStatics::SetGamePaused(GetWorld(), false);
+		}
+	}
+}
+
+void ALevelHUD::ReturnToTitle()
+{
+	if (GEngine && GEngine->GameViewport && MenuWidgetContainer.IsValid())
+	{
+		if (PlayerOwner)
+		{
+			GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
+			UGameplayStatics::OpenLevel(this, FName("LV_MainMenu"), true);
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 
 #include "SPauseMenuWidget.h"
-#include "MainHUD.h"
+#include "LevelHUD.h"
 #include "GameFramework/PlayerController.h"
 
 #define LOCTEXT_NAMESPACE "MainMenu"
@@ -11,6 +11,9 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 {
 	bCanSupportFocus = true;
 	OwningHUD = InArgs._OwningHUD;
+
+	const FMargin ContentPadding = FMargin(500.f, 300.f);
+	const FMargin ButtonPadding = FMargin(10.f);
 
 	const FText PauseText = LOCTEXT("PauseText", "Pause");
 	const FText ResumeText = LOCTEXT("ResumeGame", "Resume");
@@ -23,11 +26,12 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 			.VAlign(VAlign_Fill)
 			[
 				SNew(SImage)
-					.ColorAndOpacity(FColor::Black)
+					.ColorAndOpacity(FColor::Transparent)
 			]
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Fill)
 			.VAlign(VAlign_Fill)
+			.Padding(ContentPadding)
 			[
 				// ...VERTICAL BOX
 				SNew(SVerticalBox)
@@ -40,6 +44,7 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 					]
 					// ...RESUME BUTTON
 					+ SVerticalBox::Slot()
+					.Padding(ButtonPadding)
 					[
 						SNew(SButton)
 							.OnClicked(this, &SPauseMenuWidget::OnResumeClicked)
@@ -51,6 +56,7 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 					]
 					// ...TO TITLE BUTTON
 					+ SVerticalBox::Slot()
+					.Padding(ButtonPadding)
 					[
 						SNew(SButton)
 							.OnClicked(this, &SPauseMenuWidget::OnToTitleClicked)
@@ -68,7 +74,7 @@ FReply SPauseMenuWidget::OnResumeClicked() const
 {
 	if (OwningHUD.IsValid())
 	{
-		// ...logic for resuming the game
+		OwningHUD->RemovePauseMenu();
 	}
 	return FReply::Handled();
 }
@@ -77,7 +83,7 @@ FReply SPauseMenuWidget::OnToTitleClicked() const
 {
 	if (OwningHUD.IsValid())
 	{
-		// ...logic for returning to the title screen
+		OwningHUD->ReturnToTitle();
 	}
 	return FReply::Handled();
 }

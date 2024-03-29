@@ -26,6 +26,17 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 	FSlateFontInfo TitleTextStyle = ButtonTextStyle;
 	TitleTextStyle.Size = 60.f;
 
+	FString ImagePath = FPaths::ProjectContentDir() / TEXT("Assets/Images/HudIcons/CleanupClashMainMenuImage.png");
+	FName BrushName = FName(*ImagePath);
+	FVector2D ScreenDimensions = FVector2D(GEngine->GameViewport->Viewport->GetSizeXY());
+	
+	/*FString ImagePath = FPaths::GameContentDir() / TEXT("default_pictures/test.jpg");
+
+	FName BrushName = FName(*ImagePath);
+	....
+	SNew(SImage)
+	.Image(new FSlateImageBrush(BrushName, FVector2D(128, 128)))*/
+
 	// ...where we construct our UI
 	ChildSlot[
 		SNew(SOverlay) 
@@ -34,7 +45,8 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 			.VAlign(VAlign_Fill)
 			[
 				SNew(SImage)
-					.ColorAndOpacity(FColor::Transparent)
+					.Image(new FSlateImageBrush(BrushName, FVector2D(ScreenDimensions.X, ScreenDimensions.Y)))
+					// .ColorAndOpacity(FColor::Transparent)
 			]
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Fill)

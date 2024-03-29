@@ -46,7 +46,7 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 			{
 				UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
 			}
-			if (InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
+			if ((InputDeviceIDs.Num() + 1) % 2 == 0 && InputDeviceIDs.Num())
 			{
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ToString(MenuWidgetContainer));

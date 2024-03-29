@@ -24,5 +24,6 @@ public:
 	virtual void BeginPlay() override;
 	void ShowPauseMenu();
 	void ShowGameMenu();
-	void RemoveMenu(bool GoToMainLevel);
+	void RemovePauseMenu();
+	void ReturnToTitle();
 };

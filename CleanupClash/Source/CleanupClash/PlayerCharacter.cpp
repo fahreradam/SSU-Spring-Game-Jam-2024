@@ -10,7 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "MainHUD.h"
+#include "LevelHUD.h"
 #include "Camera/CameraActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
@@ -120,7 +120,7 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 		// Pausing
 		// ...NEED PAUSE ADDED -- DESMOND CRAFT
-		EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Pause);
+		EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Started, this, &APlayerCharacter::Pause);
 	}
 	else
 	{
@@ -247,8 +247,9 @@ void APlayerCharacter::EndMeleeAttack()
 // ...NEED PAUSE ADDED -- DESMOND CRAFT
 void APlayerCharacter::Pause()
 {
-	/*if (AMainHUD* MainHUD = Cast<AMainHUD>())
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Fun"));
+	if (ALevelHUD* HUD = Cast<ALevelHUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD()))
 	{
-		MainHUD->ShowPauseMenu();
-	}*/
+		HUD->ShowPauseMenu();
+	}
 }
