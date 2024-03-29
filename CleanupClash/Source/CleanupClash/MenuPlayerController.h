@@ -14,4 +14,7 @@ class CLEANUPCLASH_API AMenuPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+protected:
+	AMenuPlayerController();
+	virtual void SetupInputComponent() override;
 };

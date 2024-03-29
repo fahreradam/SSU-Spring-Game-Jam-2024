@@ -12,8 +12,6 @@
 
 class SMainMenuWidget : public SCompoundWidget
 {
-	// GENERATED_BODY()
-
 public:
 	// ...a system for passing information to the HUD
 	SLATE_BEGIN_ARGS(SMainMenuWidget) {}

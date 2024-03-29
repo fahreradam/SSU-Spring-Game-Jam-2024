@@ -9,13 +9,14 @@
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
+
 void AMainHUD::BeginPlay()
 {
 	Super::BeginPlay();
-	ShowMenu();
+	ShowMainMenu();
 }
 
-void AMainHUD::ShowMenu()
+void AMainHUD::ShowMainMenu()
 {
 	if (GEngine && GEngine->GameViewport)
 	{
@@ -23,7 +24,6 @@ void AMainHUD::ShowMenu()
 		GEngine->GameViewport->AddViewportWidgetContent(
 			SAssignNew(MenuWidgetContainer, SWeakWidget).PossiblyNullContent(MenuWidget.ToSharedRef())
 		);
-		
 		if (PlayerOwner)
 		{
 			// ...player owner is from HUD.h
@@ -42,16 +42,21 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 		{
 			TArray<FInputDeviceId> InputDeviceIDs;
 			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
-			for (int i = 0; i < InputDeviceIDs.Num()-1; i++)
+			for (int i = 0; i < InputDeviceIDs.Num() - 1; i++)
 			{
 				UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
 			}
-			if (GoToMainLevel && InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
+			if (InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
-				UGameplayStatics::OpenLevel(this, FName("LV_Gameplay"), true);
+				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
+				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ToString(MenuWidgetContainer));
+				GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
 				PlayerOwner->bShowMouseCursor = false;
 				PlayerOwner->SetInputMode(FInputModeGameOnly());
+				if (GoToMainLevel)
+				{
+					UGameplayStatics::OpenLevel(this, FName("LV_Gameplay"), true);
+				}
 			}
 		}
 	}

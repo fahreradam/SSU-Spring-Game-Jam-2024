@@ -4,23 +4,25 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
-#include "MainHUD.generated.h"
+#include "LevelHUD.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CLEANUPCLASH_API AMainHUD : public AHUD
+class CLEANUPCLASH_API ALevelHUD : public AHUD
 {
 	GENERATED_BODY()
 	
 protected:
-	TSharedPtr<class SMainMenuWidget> MenuWidget;
+	TSharedPtr<class SPauseMenuWidget> PauseWidget;
+	// TSharedPtr<class 
 	// ...the container is used to remove/add the menu to the screen
 	TSharedPtr<class SWidget> MenuWidgetContainer;
-
+	
 public:
 	virtual void BeginPlay() override;
-	void ShowMainMenu();
+	void ShowPauseMenu();
+	void ShowGameMenu();
 	void RemoveMenu(bool GoToMainLevel);
 };

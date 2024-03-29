@@ -4,11 +4,15 @@
 #include "PlayerCharacter.h"
 #include "Kismet/GameplayStatics.h"
 #include "UObject/ConstructorHelpers.h"
-#include "MainHUD.h"
-#include "SMainMenuWidget.h"
+#include "LevelHUD.h"
+#include "MenuPlayerController.h"
 
 ACleanupClashGameMode::ACleanupClashGameMode()
 {
+	PlayerControllerClass = AMenuPlayerController::StaticClass();
+	HUDClass = ALevelHUD::StaticClass();
+	// AMainHUD::RemoveMenu(false);
+	// GEngine->GameViewport->RemoveViewportWidgetContent(.ToSharedRef());
 	// set default pawn class to our Blueprinted character
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("/Game/Player/BP_Player"));
 	if (PlayerPawnBPClass.Class != NULL)

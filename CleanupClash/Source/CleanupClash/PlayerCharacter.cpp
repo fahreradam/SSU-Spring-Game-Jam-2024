@@ -10,9 +10,11 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "MainHUD.h"
 #include "Camera/CameraActor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "MenuPlayerController.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -115,6 +117,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		
 		// Attacking
 		EnhancedInputComponent->BindAction(MeleeAction, ETriggerEvent::Started, this, &APlayerCharacter::Melee);
+
+		// Pausing
+		// ...NEED PAUSE ADDED -- DESMOND CRAFT
+		EnhancedInputComponent->BindAction(PauseAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Pause);
 	}
 	else
 	{
@@ -236,4 +242,13 @@ void APlayerCharacter::EndMeleeAttack()
 	GetCharacterMovement()->MovementMode = MOVE_Walking;
 	if (State != EPlayerState::Stunned)
 		State = EPlayerState::Default;
+}
+
+// ...NEED PAUSE ADDED -- DESMOND CRAFT
+void APlayerCharacter::Pause()
+{
+	/*if (AMainHUD* MainHUD = Cast<AMainHUD>())
+	{
+		MainHUD->ShowPauseMenu();
+	}*/
 }

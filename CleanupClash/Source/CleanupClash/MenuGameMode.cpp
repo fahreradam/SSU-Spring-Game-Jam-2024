@@ -5,7 +5,6 @@
 #include "MainHUD.h"
 #include "Engine/Engine.h"
 #include "MenuPlayerController.h"
-#include "SMainMenuWidget.h"
 
 AMenuGameMode::AMenuGameMode()
 {
