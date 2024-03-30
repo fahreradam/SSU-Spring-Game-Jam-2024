@@ -49,6 +49,10 @@ class APlayerCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"));
 	UInputAction* PauseAction;
 
+	/** Dash Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* DashAction;	
+
 	/** Melee Attack Anim */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Anims", meta=(AllowPrivateAccess = "true"))
 	UAnimMontage* MeleeAttackAnim;
@@ -113,6 +117,9 @@ protected:
 	void EndInteract();
 
 	void Pause();
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void Dash();
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
 	int MaxTrash = 5;
