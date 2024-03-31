@@ -87,6 +87,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StunCharacter();
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnStun();
+
 	UFUNCTION(BlueprintCallable)
 	void EndStun();
 

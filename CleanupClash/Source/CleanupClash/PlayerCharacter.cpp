@@ -192,6 +192,7 @@ void APlayerCharacter::StunCharacter()
 	float StunTime = Cast<ACleanupClashGameMode>(OurWorld->GetAuthGameMode())->PlayerStunTime;
 	FTimerHandle StunTimer = FTimerHandle();
 	GetWorld()->GetTimerManager().SetTimer(StunTimer, this, &APlayerCharacter::EndStun, StunTime, false);
+	OnStun();
 }
 
 void APlayerCharacter::EndStun()
