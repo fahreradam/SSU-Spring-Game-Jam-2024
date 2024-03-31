@@ -2,7 +2,6 @@
 
 
 #include "SMainMenuWidget.h"
-#include "MenuGameMode.h"
 #include "MainHUD.h"
 #include "GameFramework/PlayerController.h"
 
@@ -79,7 +78,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 							.Padding(ButtonPadding)
 							[
 								SNew(SButton)
-									// .ButtonStyle()
+									.ButtonColorAndOpacity(FColor::Transparent)
 									.OnClicked(this, &SMainMenuWidget::OnPlayClicked)
 									[
 										SNew(SImage)
@@ -93,6 +92,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 							.Padding(ButtonPadding)
 							[
 								SNew(SButton)
+									.ButtonColorAndOpacity(FColor::Transparent)
 									.OnClicked(this, &SMainMenuWidget::OnQuitClicked)
 									[
 										SNew(SImage)

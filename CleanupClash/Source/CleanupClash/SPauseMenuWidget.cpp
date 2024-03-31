@@ -54,11 +54,12 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 					[
 						// ...HORIZONTAL BOX
 						SNew(SHorizontalBox)
-						// ...RESUME BUTTON
+							// ...RESUME BUTTON
 							+ SHorizontalBox::Slot()
 							.Padding(ButtonPadding)
 							[
 								SNew(SButton)
+									.ButtonColorAndOpacity(FColor::Transparent)
 									.OnClicked(this, &SPauseMenuWidget::OnResumeClicked)
 									[
 										SNew(SImage)
@@ -72,6 +73,7 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 							.Padding(ButtonPadding)
 							[
 								SNew(SButton)
+									.ButtonColorAndOpacity(FColor::Transparent)
 									.OnClicked(this, &SPauseMenuWidget::OnToTitleClicked)
 									[
 										SNew(SImage)

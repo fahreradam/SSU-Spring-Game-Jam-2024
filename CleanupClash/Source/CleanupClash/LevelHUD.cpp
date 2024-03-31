@@ -28,6 +28,7 @@ void ALevelHUD::ShowPauseMenu()
 			// ...SetInputMode is from PlayerController.h
 			PlayerOwner->bShowMouseCursor = true;
 			PlayerOwner->SetInputMode(FInputModeUIOnly());
+			// SetTickableWhenPaused(false);
 			UGameplayStatics::SetGamePaused(GetWorld(), true);
 			
 		}
@@ -66,4 +67,9 @@ void ALevelHUD::ReturnToTitle()
 			UGameplayStatics::OpenLevel(this, FName("LV_MainMenu"), true);
 		}
 	}
+}
+
+void ALevelHUD::GoToTitle()
+{
+	ReturnToTitle();
 }
