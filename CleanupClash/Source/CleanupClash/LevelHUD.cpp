@@ -68,8 +68,3 @@ void ALevelHUD::ReturnToTitle()
 		}
 	}
 }
-
-void ALevelHUD::GoToTitle()
-{
-	ReturnToTitle();
-}

@@ -21,8 +21,6 @@ protected:
 	TSharedPtr<class SWidget> MenuWidgetContainer;
 	
 public:
-	UFUNCTION(BlueprintCallable)
-	void GoToTitle();
 	
 	virtual void BeginPlay() override;
 	void ShowPauseMenu();

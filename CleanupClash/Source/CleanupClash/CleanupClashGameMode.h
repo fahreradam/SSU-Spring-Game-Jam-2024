@@ -23,12 +23,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	ETeamName GiveTeamName();
 
+	UFUNCTION(BlueprintCallable)
+	void ReturnToMainMenu();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<APlayerStart*> StartPoints;
 
 	virtual AActor* FindPlayerStart_Implementation(AController* Player, const FString& IncomingName) override;
-	
-	
 };
 
 

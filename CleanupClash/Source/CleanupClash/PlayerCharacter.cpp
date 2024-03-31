@@ -253,7 +253,7 @@ void APlayerCharacter::EndMeleeAttack()
 // ...NEED PAUSE ADDED -- DESMOND CRAFT
 void APlayerCharacter::Pause()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Fun"));
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Fun"));
 	if (ALevelHUD* HUD = Cast<ALevelHUD>(UGameplayStatics::GetPlayerController(this, 0)->GetHUD()))
 	{
 		HUD->ShowPauseMenu();

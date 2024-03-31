@@ -50,6 +50,11 @@ ETeamName ACleanupClashGameMode::GiveTeamName()
 	return TeamName;
 }
 
+void ACleanupClashGameMode::ReturnToMainMenu()
+{
+	UGameplayStatics::OpenLevel(this, FName("LV_MainMenu"), true);
+}
+
 AActor* ACleanupClashGameMode::FindPlayerStart_Implementation(AController* Player, const FString& IncomingName)
 {
 	if (Player->StartSpot == nullptr)
