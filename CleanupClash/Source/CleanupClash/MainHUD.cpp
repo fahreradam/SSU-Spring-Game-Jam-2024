@@ -42,16 +42,19 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 		{
 			TArray<FInputDeviceId> InputDeviceIDs;
 			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
-			
-			if (InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
+
+			int ControllersConnected = InputDeviceIDs.Num();
+			if (ControllersConnected % 2 == 0 && ControllersConnected)
 			{
-				if (UGameplayStatics::GetNumPlayerControllers(GetWorld()) < InputDeviceIDs.Num())
-				{
-					for (int i = 0; i < InputDeviceIDs.Num() - 1; i++)
-                    {
-                    	UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
-                    }
-				}
+				int PlayerControllers = UGameplayStatics::GetNumPlayerControllers(GetWorld());
+				// Remove additional player controllers
+				for (int i = 1; i < PlayerControllers; i++)
+					UGameplayStatics::RemovePlayer(UGameplayStatics::GetPlayerController(GetWorld(), i), true);
+				// Add additional player controllers up to the amount of devices currently connected
+				for (int i = 1; i < InputDeviceIDs.Num(); i++)
+                {
+                    UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
+                }
 					
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ToString(MenuWidgetContainer));
