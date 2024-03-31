@@ -101,6 +101,12 @@ public:
 
 	UPROPERTY(BlueprintReadWrite)
 	EPlayerState State = EPlayerState::Default;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+	int PlayerNumber = 0;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TArray<UMaterial*> Meshes;
 	
 
 protected:
@@ -136,7 +142,7 @@ protected:
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void UpdateTrashIcon();
-			
+
 
 protected:
 	

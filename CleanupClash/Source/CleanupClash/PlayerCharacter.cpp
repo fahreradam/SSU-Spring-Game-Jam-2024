@@ -61,6 +61,12 @@ APlayerCharacter::APlayerCharacter()
 	
 	static ConstructorHelpers::FObjectFinder<USoundWave> attackHitSoundWave(TEXT("/Script/Engine.SoundWave'/Game/Sounds/effect__adrian_gomar__book-impact-06.effect__adrian_gomar__book-impact-06'"));
 	AttackHitSoundWave = attackHitSoundWave.Object;
+
+	TArray<AActor*> Output;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerCharacter::StaticClass(), Output);
+	PlayerNumber = Output.Num();
+
+	
 	
 }
 
@@ -79,6 +85,8 @@ void APlayerCharacter::BeginPlay()
 	}
 
 	TeamName = static_cast<ACleanupClashGameMode*>(UGameplayStatics::GetGameMode(GetWorld()))->GiveTeamName();
+
+	
 }
 
 //////////////////////////////////////////////////////////////////////////
