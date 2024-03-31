@@ -42,7 +42,7 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 		{
 			TArray<FInputDeviceId> InputDeviceIDs;
 			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
-			if ((InputDeviceIDs.Num() + 1) % 2 == 0 && InputDeviceIDs.Num())
+			if (InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
 			{
 				for (int i = 0; i < InputDeviceIDs.Num() - 1; i++)
 				{
