@@ -10,5 +10,6 @@ enum class EPlayerState : uint8
 	Default,
 	Attacking,
 	Stunned,
-	Interaction
+	Interaction,
+	Dash
 };

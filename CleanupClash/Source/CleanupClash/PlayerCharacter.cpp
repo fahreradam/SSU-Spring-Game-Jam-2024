@@ -197,7 +197,7 @@ void APlayerCharacter::Move(const FInputActionValue& Value)
 	// input is a Vector2D
 	FVector2D MovementVector = Value.Get<FVector2D>();
 
-	if (State != EPlayerState::Interaction)
+	if (State != EPlayerState::Interaction && State != EPlayerState::Dash)
 	{
 		if (Controller != nullptr)
 		{
