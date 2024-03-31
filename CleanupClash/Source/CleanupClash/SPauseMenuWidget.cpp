@@ -18,6 +18,11 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 	const FText PauseText = LOCTEXT("PauseText", "Pause");
 	const FText ResumeText = LOCTEXT("ResumeGame", "Resume");
 	const FText ToTitleText = LOCTEXT("ToTitleOption", "To Title");
+	
+	FString ResumeImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Play.PNG");
+	FName ResumeBrushName = FName(*ResumeImagePath);
+	FString ToTitleImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Quit.PNG");
+	FName ToTitleBrushName = FName(*ToTitleImagePath);
 
 	ChildSlot[
 		SNew(SOverlay)
@@ -42,28 +47,38 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 							.Text(PauseText)
 							.Justification(ETextJustify::Center)
 					]
-					// ...RESUME BUTTON
+					// ...PAUSE BUTTONS
 					+ SVerticalBox::Slot()
-					.Padding(ButtonPadding)
+					.HAlign(HAlign_Center)
+					.VAlign(VAlign_Center)
 					[
-						SNew(SButton)
-							.OnClicked(this, &SPauseMenuWidget::OnResumeClicked)
+						// ...HORIZONTAL BOX
+						SNew(SHorizontalBox)
+						// ...RESUME BUTTON
+							+ SHorizontalBox::Slot()
+							.Padding(ButtonPadding)
 							[
-								SNew(STextBlock)
-									.Text(ResumeText)
-									.Justification(ETextJustify::Center)
+								SNew(SButton)
+									.OnClicked(this, &SPauseMenuWidget::OnResumeClicked)
+									[
+										SNew(SImage)
+											.Image(new FSlateDynamicImageBrush(
+												ResumeBrushName,
+												FVector2D(200.0f, 200.0f)))
+									]
 							]
-					]
-					// ...TO TITLE BUTTON
-					+ SVerticalBox::Slot()
-					.Padding(ButtonPadding)
-					[
-						SNew(SButton)
-							.OnClicked(this, &SPauseMenuWidget::OnToTitleClicked)
+							// ...TO TITLE BUTTON
+							+ SHorizontalBox::Slot()
+							.Padding(ButtonPadding)
 							[
-								SNew(STextBlock)
-									.Text(ToTitleText)
-									.Justification(ETextJustify::Center)
+								SNew(SButton)
+									.OnClicked(this, &SPauseMenuWidget::OnToTitleClicked)
+									[
+										SNew(SImage)
+											.Image(new FSlateDynamicImageBrush(
+												ToTitleBrushName,
+												FVector2D(200.0f, 200.0f)))
+									]
 							]
 					]
 			]

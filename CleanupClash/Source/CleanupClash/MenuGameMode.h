@@ -11,7 +11,11 @@ UCLASS(minimalapi)
 class AMenuGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-
+	
 public:
+	// ...constructor
 	AMenuGameMode();
+	// ...image
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	UTexture2D* MainMenuImage;
 };

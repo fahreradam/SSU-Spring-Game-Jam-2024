@@ -2,6 +2,7 @@
 
 
 #include "SMainMenuWidget.h"
+#include "MenuGameMode.h"
 #include "MainHUD.h"
 #include "GameFramework/PlayerController.h"
 
@@ -13,7 +14,7 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 	// ...get a reference to the owning hud passed in
 	OwningHUD = InArgs._OwningHUD;
 
-	const FMargin ContentPadding = FMargin(500.f, 300.f);
+	const FMargin ContentPadding = FMargin(250.f, 50.f);
 	const FMargin ButtonPadding = FMargin(10.f);
 
 	const FText TitleText = LOCTEXT("GameTitle", "Cleanup Clash");
@@ -25,17 +26,19 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 
 	FSlateFontInfo TitleTextStyle = ButtonTextStyle;
 	TitleTextStyle.Size = 60.f;
-
-	FString ImagePath = FPaths::ProjectContentDir() / TEXT("Assets/Images/HudIcons/CleanupClashMainMenuImage.png");
-	FName BrushName = FName(*ImagePath);
-	FVector2D ScreenDimensions = FVector2D(GEngine->GameViewport->Viewport->GetSizeXY());
 	
-	/*FString ImagePath = FPaths::GameContentDir() / TEXT("default_pictures/test.jpg");
-
-	FName BrushName = FName(*ImagePath);
-	....
-	SNew(SImage)
-	.Image(new FSlateImageBrush(BrushName, FVector2D(128, 128)))*/
+	// ...image paths
+	FString MainMenuImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/CleanupClashMainMenuImage.PNG");
+	FName MainMenuBrushName = FName(*MainMenuImagePath);
+	FString TitleImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/CleanupClashTitle.PNG");
+	FName TitleBrushName = FName(*TitleImagePath);
+	FString PlayImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Play.PNG");
+	FName PlayBrushName = FName(*PlayImagePath);
+	FString QuitImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Quit.PNG");
+	FName QuitBrushName = FName(*QuitImagePath);
+	
+	FVector2D ScreenDimensions = FVector2D(GEngine->GameViewport->Viewport->GetSizeXY());
+	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MainMenuBrushName.ToString());
 
 	// ...where we construct our UI
 	ChildSlot[
@@ -45,8 +48,9 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 			.VAlign(VAlign_Fill)
 			[
 				SNew(SImage)
-					.Image(new FSlateImageBrush(BrushName, FVector2D(ScreenDimensions.X, ScreenDimensions.Y)))
-					// .ColorAndOpacity(FColor::Transparent)
+					.Image(new FSlateDynamicImageBrush(
+						MainMenuBrushName,
+						FVector2D(ScreenDimensions.X, ScreenDimensions.Y)))
 			]
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Fill)
@@ -55,41 +59,47 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 			[
 				// ...VERTICAL BOX
 				SNew(SVerticalBox)
-
-					// ...TITLE TEXT
+					// ...TITLE IMAGE
 					+ SVerticalBox::Slot()
 					[
-						SNew(STextBlock)
-							.Font(TitleTextStyle)
-							.Text(TitleText)
-							.Justification(ETextJustify::Center)
+						SNew(SImage)
+							.Image(new FSlateDynamicImageBrush(
+								TitleBrushName,
+								FVector2D(840.0f, 350.0f)))
 					]
-
-					// ...PLAY BUTTON
+					// ...TITLE BUTTONS
 					+ SVerticalBox::Slot()
-					.Padding(ButtonPadding)
+					.HAlign(HAlign_Center)
+					.VAlign(VAlign_Center)
 					[
-						SNew(SButton)
-							.OnClicked(this, &SMainMenuWidget::OnPlayClicked)
+						// ...HORIZONTAL BOX
+						SNew(SHorizontalBox)
+							// ...PLAY BUTTON
+							+ SHorizontalBox::Slot()
+							.Padding(ButtonPadding)
 							[
-								SNew(STextBlock)
-									.Font(ButtonTextStyle)
-									.Text(PlayText)
-									.Justification(ETextJustify::Center)
+								SNew(SButton)
+									// .ButtonStyle()
+									.OnClicked(this, &SMainMenuWidget::OnPlayClicked)
+									[
+										SNew(SImage)
+											.Image(new FSlateDynamicImageBrush(
+												PlayBrushName,
+												FVector2D(200.0f, 200.0f)))
+									]
 							]
-					]
-
-					// ...QUIT BUTTON
-					+ SVerticalBox::Slot()
-					.Padding(ButtonPadding)
-					[
-						SNew(SButton)
-							.OnClicked(this, &SMainMenuWidget::OnQuitClicked)
+							// ...QUIT BUTTON
+							+ SHorizontalBox::Slot()
+							.Padding(ButtonPadding)
 							[
-								SNew(STextBlock)
-									.Font(ButtonTextStyle)
-									.Text(QuitText)
-									.Justification(ETextJustify::Center)
+								SNew(SButton)
+									.OnClicked(this, &SMainMenuWidget::OnQuitClicked)
+									[
+										SNew(SImage)
+											.Image(new FSlateDynamicImageBrush(
+												QuitBrushName,
+												FVector2D(200.0f, 200.0f)))
+									]
 							]
 					]
 			]
