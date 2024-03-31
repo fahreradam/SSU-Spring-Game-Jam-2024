@@ -57,6 +57,10 @@ class APlayerCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Anims", meta=(AllowPrivateAccess = "true"))
 	UAnimMontage* MeleeAttackAnim;
 
+	/** Lever Pull Anim */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category= "Anims", meta=(AllowPrivateAccess = "true"))
+	UAnimMontage* LeverPullAnim;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Sound, meta = (AllowPrivateAccess = "true"))
 	USoundWave* AttackSoundWave;
 

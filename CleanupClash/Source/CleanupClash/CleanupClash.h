@@ -9,5 +9,6 @@ enum class EPlayerState : uint8
 {
 	Default,
 	Attacking,
-	Stunned
+	Stunned,
+	Interaction
 };
