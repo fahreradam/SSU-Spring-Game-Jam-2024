@@ -42,12 +42,17 @@ void AMainHUD::RemoveMenu(bool GoToMainLevel)
 		{
 			TArray<FInputDeviceId> InputDeviceIDs;
 			UInputDeviceLibrary::GetAllInputDevices(InputDeviceIDs);
+			
 			if (InputDeviceIDs.Num() % 2 == 0 && InputDeviceIDs.Num())
 			{
-				for (int i = 0; i < InputDeviceIDs.Num() - 1; i++)
+				if (UGameplayStatics::GetNumPlayerControllers(GetWorld()) < InputDeviceIDs.Num())
 				{
-					UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
+					for (int i = 0; i < InputDeviceIDs.Num() - 1; i++)
+                    {
+                    	UGameplayStatics::CreatePlayer(GetWorld(), -1, false);				
+                    }
 				}
+					
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, FString::Printf(TEXT("%d")));
 				// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, ToString(MenuWidgetContainer));
 				GEngine->GameViewport->RemoveViewportWidgetContent(MenuWidgetContainer.ToSharedRef());
