@@ -15,29 +15,16 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 
 	const FMargin ContentPadding = FMargin(250.f, 50.f);
 	const FMargin ButtonPadding = FMargin(10.f);
-
-	const FText TitleText = LOCTEXT("GameTitle", "Cleanup Clash");
-	const FText PlayText = LOCTEXT("PlayGame", "Play");
-	const FText QuitText = LOCTEXT("QuitGame", "Quit Game");
-
-	FSlateFontInfo ButtonTextStyle = FCoreStyle::Get().GetFontStyle("EmbossedText");
-	ButtonTextStyle.Size = 40.f;
-
-	FSlateFontInfo TitleTextStyle = ButtonTextStyle;
-	TitleTextStyle.Size = 60.f;
 	
 	// ...image paths
 	FString MainMenuImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/CleanupClashMainMenuImage.PNG");
 	FName MainMenuBrushName = FName(*MainMenuImagePath);
-	FString TitleImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/CleanupClashTitle.PNG");
-	FName TitleBrushName = FName(*TitleImagePath);
 	FString PlayImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Play.PNG");
 	FName PlayBrushName = FName(*PlayImagePath);
 	FString QuitImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Quit.PNG");
 	FName QuitBrushName = FName(*QuitImagePath);
-	
+	// ...screen dimensions
 	FVector2D ScreenDimensions = FVector2D(GEngine->GameViewport->Viewport->GetSizeXY());
-	// GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Yellow, MainMenuBrushName.ToString());
 
 	// ...where we construct our UI
 	ChildSlot[
@@ -58,14 +45,6 @@ void SMainMenuWidget::Construct(const FArguments& InArgs)
 			[
 				// ...VERTICAL BOX
 				SNew(SVerticalBox)
-					// ...TITLE IMAGE
-					+ SVerticalBox::Slot()
-					[
-						SNew(SImage)
-							.Image(new FSlateDynamicImageBrush(
-								TitleBrushName,
-								FVector2D(840.0f, 350.0f)))
-					]
 					// ...TITLE BUTTONS
 					+ SVerticalBox::Slot()
 					.HAlign(HAlign_Center)

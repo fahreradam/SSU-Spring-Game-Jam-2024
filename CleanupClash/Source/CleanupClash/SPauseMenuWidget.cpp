@@ -4,6 +4,7 @@
 #include "SPauseMenuWidget.h"
 #include "LevelHUD.h"
 #include "GameFramework/PlayerController.h"
+#include "Widgets/Layout/SBackgroundBlur.h"
 
 #define LOCTEXT_NAMESPACE "MainMenu"
 
@@ -14,11 +15,11 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 
 	const FMargin ContentPadding = FMargin(500.f, 300.f);
 	const FMargin ButtonPadding = FMargin(10.f);
-
-	const FText PauseText = LOCTEXT("PauseText", "Pause");
-	const FText ResumeText = LOCTEXT("ResumeGame", "Resume");
-	const FText ToTitleText = LOCTEXT("ToTitleOption", "To Title");
-	
+	// ...image paths
+	FString PauseTitleImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/PauseTitle.PNG");
+	FName PauseTitleBrushName = FName(*PauseTitleImagePath);
+	FString ControllerSchemeImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/ControllerScheme.PNG");
+	FName ControllerSchemeBrushName = FName(*ControllerSchemeImagePath);
 	FString ResumeImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Play.PNG");
 	FName ResumeBrushName = FName(*ResumeImagePath);
 	FString ToTitleImagePath = FPaths::ProjectContentDir() + TEXT("Assets/Images/HudIcons/Quit.PNG");
@@ -26,13 +27,35 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 
 	ChildSlot[
 		SNew(SOverlay)
+			// ...BLUR BACKGROUND
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Fill)
 			.VAlign(VAlign_Fill)
 			[
-				SNew(SImage)
-					.ColorAndOpacity(FColor::Transparent)
+				SNew(SBackgroundBlur)
+					.BlurStrength(5)
 			]
+			// ...PAUSE IMAGE
+			+SOverlay::Slot()
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Top)
+			[
+				SNew(SImage)
+					.Image(new FSlateDynamicImageBrush(
+						PauseTitleBrushName,
+						FVector2D(1100, 728.75)))
+			]
+			// ...CONTROL SCHEME
+			+SOverlay::Slot()
+			.HAlign(HAlign_Center)
+			.VAlign(VAlign_Center)
+			[
+				SNew(SImage)
+					.Image(new FSlateDynamicImageBrush(
+						ControllerSchemeBrushName,
+						FVector2D(1100, 728.75)))
+			]
+			// ...VERTICAL BOX
 			+ SOverlay::Slot()
 			.HAlign(HAlign_Fill)
 			.VAlign(VAlign_Fill)
@@ -40,13 +63,6 @@ void SPauseMenuWidget::Construct(const FArguments& InArgs)
 			[
 				// ...VERTICAL BOX
 				SNew(SVerticalBox)
-					// ...PAUSE TEXT
-					+ SVerticalBox::Slot()
-					[
-						SNew(STextBlock)
-							.Text(PauseText)
-							.Justification(ETextJustify::Center)
-					]
 					// ...PAUSE BUTTONS
 					+ SVerticalBox::Slot()
 					.HAlign(HAlign_Center)
