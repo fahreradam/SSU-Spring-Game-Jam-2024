@@ -159,7 +159,7 @@ void APlayerCharacter::OnMeleeOverlap(UPrimitiveComponent* OverlappedComp, AActo
 			// Cause other character to drop trash and stun them
 			OtherPlayer->StunCharacter();
 			FRotator RotationToSelf = UKismetMathLibrary::FindLookAtRotation(OtherPlayer->GetActorLocation(), GetActorLocation());
-			FVector DropDir = UKismetMathLibrary::GetForwardVector(RotationToSelf);
+			FVector DropDir = UKismetMathLibrary::GetForwardVector(RotationToSelf) * -1;
 			OtherPlayer->DropTrash(DropDir);
 		}
 	}

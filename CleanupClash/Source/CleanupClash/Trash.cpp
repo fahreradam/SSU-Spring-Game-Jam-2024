@@ -10,7 +10,7 @@ ATrash::ATrash()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("TrashMesh");
-	Mesh->SetCollisionProfileName("OverlapAll");
+	Mesh->SetCollisionProfileName("NoCollision");
 
 	RootComponent = Mesh;
 
@@ -21,7 +21,9 @@ ATrash::ATrash()
 void ATrash::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	FTimerHandle Handle;
+	GetWorld()->GetTimerManager().SetTimer(Handle, this, &ATrash::BeginCollision, 0.25);
 }
 
 // Called every frame
@@ -30,6 +32,11 @@ void ATrash::Tick(float DeltaTime)
 	SpecialMovement();
 	Super::Tick(DeltaTime);
 
+}
+
+void ATrash::BeginCollision()
+{
+	Mesh->SetCollisionProfileName("OverlapAll");
 }
 
 void ATrash::SpecialMovement()
